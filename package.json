@@ -1,0 +1,8 @@
+{
+  "name": "meritoss.db",
+  "version": "1.0.0",
+  "description": "database schema for meritoss",
+  "scripts": {},
+  "author": "Danny Hadley <dadleyy@gmail.com>",
+  "license": "ISC"
+}
