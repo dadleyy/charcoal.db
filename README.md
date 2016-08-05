@@ -1,3 +1,3 @@
-# Meritoss Database
+# meritoss db
 
-This repository contains all of the database migrations for the meritoss platform.
+[nodejs](http://knexjs.org/) mysql migrations with help from the [knex](http://knexjs.org/) library
