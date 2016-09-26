@@ -1,0 +1,18 @@
+{
+  "name": "caap.db",
+  "version": "1.0.0",
+  "description": "database schema for caap",
+  "scripts": {
+    "up": "knex migrate:latest",
+    "down": "knex migrate:rollback",
+    "both": "npm run down && npm run up"
+  },
+  "author": "Danny Hadley <dadleyy@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "dotenv": "^2.0.0",
+    "knex": "^0.11.9",
+    "mysql": "^2.11.1"
+  }
+}
