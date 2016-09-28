@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string("key");
     table.string("mime");
-    table.enum("status", ["RECEIVED","PERSIST_ERROR","TEMPORARY","PERSISTED","ABANDONED"]);
+    table.enum("status", ["TEMPORARY","OWNED","ABANDONDED"]);
     table.timestamps();
   });
 };

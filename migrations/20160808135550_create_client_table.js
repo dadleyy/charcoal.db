@@ -26,7 +26,7 @@ exports.up = function(knex, Promise) {
       client_secret : key(40)
     }).then(function(results) {
       console.log(`
-      Note: creating meritoss client! This information is essential
+      Note: creating caap client! This information is essential
       for getting started with the api locally.
 
         client id     : ${results.client_id}
@@ -34,7 +34,7 @@ exports.up = function(knex, Promise) {
 
       `);
       return knex("clients").insert({
-        name          : "meritoss",
+        name          : "caap",
         client_id     : results.client_id,
         client_secret : results.client_secret,
         created_at    : new Date()
