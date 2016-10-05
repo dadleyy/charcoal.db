@@ -26,11 +26,12 @@ exports.up = function(knex, Promise) {
       client_secret : key(40)
     }).then(function(results) {
       console.log(`
-      Note: creating caap client! This information is essential
+      Note: creating miritos client! This information is essential
       for getting started with the api locally.
 
         client id     : ${results.client_id}
         client secret : ${results.client_secret}
+        x-client-auth : ${new Buffer(results.client_id + ":" + results.client_secret).toString("base64")}
 
       `);
       return knex("clients").insert({
