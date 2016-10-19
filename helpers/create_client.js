@@ -2,20 +2,12 @@
 
 const crypto   = require("crypto");
 const bluebird = require("bluebird");
-
-function key(desired_character_length) {
-  var byte_count = desired_character_length * 0.5;
-  return new bluebird(function(resolve, reject) {
-    crypto.randomBytes(byte_count, function(err, result) {
-      resolve(result.toString("hex"));
-    });
-  });
-}
+const rando    = require("./random_string");
 
 module.exports = function create(knex, name) {
   return bluebird.props({
-    client_id     : key(20),
-    client_secret : key(40)
+    client_id     : rando(20),
+    client_secret : rando(40)
   }).then(function(results) {
     console.log(`
     Note: creating miritos client! This information is essential

@@ -11,8 +11,10 @@
   "author": "Danny Hadley <dadleyy@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "dotenv": "^2.0.0",
+    "jsonwebtoken": "^7.1.9",
     "knex": "^0.11.9",
     "mysql": "^2.11.1"
   }
