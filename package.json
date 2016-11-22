@@ -1,12 +1,11 @@
 {
-  "name": "caap.db",
+  "name": "meritoss.db",
   "version": "1.0.0",
-  "description": "database schema for caap",
+  "description": "database schema for meritoss",
   "scripts": {
-    "up": "knex migrate:latest",
-    "down": "knex migrate:rollback",
-    "both": "npm run down && npm run up",
-    "new": "knex migrate:make"
+    "up": "./node_modules/.bin/knex migrate:latest",
+    "down": "./node_modules/.bin/knex migrate:rollback",
+    "new": "./node_modules/.bin/knex migrate:make"
   },
   "author": "Danny Hadley <dadleyy@gmail.com>",
   "license": "ISC",
