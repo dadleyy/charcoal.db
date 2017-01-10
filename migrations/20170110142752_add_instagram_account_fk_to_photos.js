@@ -7,6 +7,10 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return knex.schema.table("instagram_photos", function(table) {
-    table.dropColumn("instagram_account");
+      table.dropForeign("instagram_account");
+  }).then(function() {
+    return knex.schema.table("instagram_photos", function(table) {
+      table.dropColumn("instagram_account");
+    });
   });
 };
