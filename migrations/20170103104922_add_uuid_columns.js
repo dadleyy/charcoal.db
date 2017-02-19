@@ -1,9 +1,18 @@
 const targets = [
-  "photos",
-  "users",
-  "instagram_photos",
+  "activity",
+  "client_admins",
+  "client_tokens",
   "clients",
-  "files"
+  "display_schedules",
+  "files",
+  "google_accounts",
+  "photos",
+  "system_email_domains",
+  "system_settings",
+  "user_role_mappings",
+  "user_roles",
+  "users",
+  "instagram_photos"
 ];
 
 exports.up = function(knex, Promise) {
