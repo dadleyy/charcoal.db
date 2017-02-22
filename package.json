@@ -5,6 +5,7 @@
   "scripts": {
     "up": "./node_modules/.bin/knex migrate:latest",
     "down": "./node_modules/.bin/knex migrate:rollback",
+    "reset": "npm run down && npm run up",
     "new": "./node_modules/.bin/knex migrate:make"
   },
   "author": "Danny Hadley <dadleyy@gmail.com>",
