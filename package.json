@@ -1,12 +1,12 @@
 {
-  "name": "meritoss.db",
+  "name": "charcoal.db",
   "version": "1.0.0",
-  "description": "database schema for meritoss",
+  "description": "database schema for charcoal",
   "scripts": {
-    "up": "./node_modules/.bin/knex migrate:latest",
-    "down": "./node_modules/.bin/knex migrate:rollback",
+    "up": "knex migrate:latest",
+    "down": "knex migrate:rollback",
     "reset": "npm run down && npm run up",
-    "new": "./node_modules/.bin/knex migrate:make"
+    "new": "knex migrate:make"
   },
   "author": "Danny Hadley <dadleyy@gmail.com>",
   "license": "ISC",
