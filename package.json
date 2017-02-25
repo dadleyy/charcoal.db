@@ -6,7 +6,8 @@
     "up": "knex migrate:latest",
     "down": "knex migrate:rollback",
     "reset": "npm run down && npm run up",
-    "new": "knex migrate:make"
+    "new": "knex migrate:make",
+    "client:update-credentials": "gulp client:update-credentials"
   },
   "author": "Danny Hadley <dadleyy@gmail.com>",
   "license": "ISC",
@@ -14,8 +15,12 @@
     "bcrypt": "^1.0.2",
     "bluebird": "^3.4.1",
     "dotenv": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.8",
     "jsonwebtoken": "^7.1.9",
     "knex": "^0.12.7",
-    "mysql": "^2.11.1"
+    "mysql": "^2.11.1",
+    "node-uuid": "^1.4.7",
+    "yargs": "^6.6.0"
   }
 }

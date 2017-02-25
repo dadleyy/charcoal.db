@@ -1,6 +1,5 @@
 "use strict";
 
-const crypto   = require("crypto");
 const bluebird = require("bluebird");
 const rando    = require("./random_string");
 
