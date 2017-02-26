@@ -9,6 +9,34 @@ const rando    = require("./helpers/random_string");
 
 const db_config = require("./knexfile");
 
+gulp.task("client:get-credentials", function() {
+  let db_client = knex(db_config.production);
+  let { client: id } = argv;
+
+  if(id >= 1 !== true) {
+    db_client.destroy();
+    throw new Error(`invalid client id: ${argv.client}`);
+  }
+
+  function print(results) {
+    let [ client ] = results || [ ];
+
+    if(!client) {
+      throw new Error(`client ${id} not found`);
+    }
+
+    let { client_id, client_secret } = client;
+    let token = new Buffer(`${client_id}:${client_secret}`).toString('base64');
+    utils.log(`client #${id}: client_id[${client_id}] secret[${client_secret}] token[${token}]`);
+  }
+
+  function done() {
+    db_client.destroy();
+  }
+
+  return db_client("clients").where({ id }).then(print).finally(done);
+});
+
 gulp.task("client:update-credentials", function() {
   let db_client = knex(db_config.production);
   let { client: id } = argv;
