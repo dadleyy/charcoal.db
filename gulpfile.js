@@ -25,8 +25,9 @@ gulp.task("client:update-credentials", function() {
     client_secret : rando(40)
   }).then(function({ client_id, client_secret }) {
     let updates = { client_id, client_secret };
+    let token = new Buffer(`${client_id}:${client_secret}`).toString('base64');
 
-    utils.log(`new client id for ${id}: ${updates.client_id}, secret: ${updates.client_secret}`);
+    utils.log(`new client id for ${id}: ${updates.client_id}, secret: ${updates.client_secret}, token: ${token}`);
 
     if(redirect_uri) {
       updates.redirect_uri = redirect_uri;
