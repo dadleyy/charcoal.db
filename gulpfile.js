@@ -27,7 +27,11 @@ gulp.task("client:get-credentials", function() {
 
     let { client_id, client_secret } = client;
     let token = new Buffer(`${client_id}:${client_secret}`).toString('base64');
-    utils.log(`client #${id}: client_id[${client_id}] secret[${client_secret}] token[${token}]`);
+
+    utils.log(`client #${id}:`);
+    utils.log(`   client_id     [${client_id}]`);
+    utils.log(`   client_secret [${client_secret}]`);
+    utils.log(`   token         [${token}]`);
   }
 
   function done() {
@@ -55,7 +59,10 @@ gulp.task("client:update-credentials", function() {
     let updates = { client_id, client_secret };
     let token = new Buffer(`${client_id}:${client_secret}`).toString('base64');
 
-    utils.log(`new client id for ${id}: ${updates.client_id}, secret: ${updates.client_secret}, token: ${token}`);
+    utils.log(`new client credentials for ${id}:`);
+    utils.log(`   client_id     [${updates.client_id}]`);
+    utils.log(`   client_secret [${updates.client_secret}]`);
+    utils.log(`   token         [${token}]`);
 
     if(redirect_uri) {
       updates.redirect_uri = redirect_uri;
