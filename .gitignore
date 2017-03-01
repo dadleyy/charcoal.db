@@ -5,6 +5,11 @@ node_modules
 npm-debug.log
 dump.rdb
 .env
+
+.env-test
+.env-production
+.env-development
+
 .keys
 
 
