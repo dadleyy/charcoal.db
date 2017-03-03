@@ -5,3 +5,4 @@ const db_config = require("./knexfile");
 
 require("./tasks/clients")(gulp, db_config, argv);
 require("./tasks/users")(gulp, db_config, argv);
+require("./tasks/games")(gulp, db_config, argv);
