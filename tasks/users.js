@@ -3,9 +3,38 @@ const uuid     = require("node-uuid");
 const knex     = require("knex");
 const crypto   = require("crypto");
 const bluebird = require("bluebird");
+const table    = require("easy-table");
 const rando    = require("../helpers/random_string");
 
 module.exports = function(gulp, db_config, argv) {
+
+  gulp.task("users:search", function() {
+    let db_client = knex(db_config.production);
+    let { page } = argv;
+
+    function print(users) {
+      db_client.destroy();
+
+      if(users.length == 0) {
+        utils.log(`no users found.`);
+        return bluebird.resolve(true);
+      }
+
+      let t = new table();
+      for(let i = 0, c = users.length; i < c; i++) {
+        let { id, email, name, username } = users[i];
+        t.cell("id", id);
+        t.cell("email", email);
+        t.cell("username", username);
+        t.cell("name", username);
+        t.newRow()
+      }
+
+      utils.log(`\n${t.toString()}`);
+    }
+
+    return db_client("users").whereNull("deleted_at").limit(20).offset(20 * (page || 0)).then(print);
+  });
 
   gulp.task("user:add-role", function() {
     let db_client = knex(db_config.production);
