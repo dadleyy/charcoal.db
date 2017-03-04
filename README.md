@@ -1,5 +1,7 @@
 ![charcoal logo](https://cloud.githubusercontent.com/assets/1545348/23335776/8f55a0fc-fb8a-11e6-8a36-9061bbe03973.png)
 
+[![Build Status](https://travis-ci.org/dadleyy/charcoal.db.svg?branch=master)](https://travis-ci.org/dadleyy/charcoal.db)
+
 This project contains [nodejs](http://knexjs.org/) mysql migrations for the [charcoal](https://github.com/dadleyy/charcoal.api) api, with help from the [knex](http://knexjs.org/) library.
 
 ### Setup
