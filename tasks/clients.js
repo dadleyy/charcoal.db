@@ -22,13 +22,14 @@ module.exports = function(gulp, db_config, argv) {
         throw new Error(`client ${id} not found`);
       }
 
-      let { client_id, client_secret } = client;
+      let { client_id, client_secret, redirect_uri } = client;
       let token = new Buffer(`${client_id}:${client_secret}`).toString('base64');
 
       utils.log(`client #${id}:`);
       utils.log(`   client_id     [${client_id}]`);
       utils.log(`   client_secret [${client_secret}]`);
       utils.log(`   token         [${token}]`);
+      utils.log(`   redirect_uri  [${redirect_uri}]`);
     }
 
     function done() {

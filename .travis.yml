@@ -13,4 +13,5 @@ sudo: false
 install:
   - npm install
 script:
-  - echo "to do"
+  - npm run up
+  - npm run down
