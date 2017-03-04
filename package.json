@@ -10,6 +10,8 @@
     "task": "gulp",
     "user:add-role": "gulp user:add-role",
     "user:get-roles": "gulp user:get-roles",
+    "games:prune-deleted-games": "gulp games:prune-deleted-games",
+    "games:recalculate-populations": "gulp games:recalculate-populations",
     "client:update-credentials": "gulp client:update-credentials",
     "client:get-credentials": "gulp client:get-credentials"
   },
