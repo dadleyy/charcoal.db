@@ -8,7 +8,7 @@ dump.rdb
 
 .env-test
 .env-production
-.env-development
+.env-*
 
 .keys
 
