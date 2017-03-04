@@ -6,6 +6,8 @@ This project contains [nodejs](http://knexjs.org/) mysql migrations for the [cha
 
 ### Setup
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dadleyy/charcoal.db.svg)](https://greenkeeper.io/)
+
 In order to run these migrations, you will need to install the node dependencies and create a `.env` file containing your database connection configuration. An [example](https://github.com/dadleyy/charcoal.db/blob/master/.env.example) has been included in the root of this repository.
 
 Once you node modules and `.env` file have been installed and setup, you can migrate your database using the following commands:
