@@ -3,15 +3,13 @@ const uuid     = require("node-uuid");
 const knex     = require("knex");
 const crypto   = require("crypto");
 const bluebird = require("bluebird");
-const rando    = require("../helpers/random_string");
+const rando    = require("../../helpers/random_string");
 
-module.exports = function(gulp, db_config, argv) {
-  gulp.task("client:get-credentials", function() {
-    let db_client = knex(db_config.production);
+module.exports = {
+  "client:get-credentials": function(client, argv) {
     let { client: id } = argv;
 
     if(id >= 1 !== true) {
-      db_client.destroy();
       throw new Error(`invalid client id: ${argv.client}`);
     }
 
@@ -32,19 +30,13 @@ module.exports = function(gulp, db_config, argv) {
       utils.log(`   redirect_uri  [${redirect_uri}]`);
     }
 
-    function done() {
-      db_client.destroy();
-    }
+    return client("clients").where({ id }).then(print);
+  },
 
-    return db_client("clients").where({ id }).then(print).finally(done);
-  });
-
-  gulp.task("client:update-credentials", function() {
-    let db_client = knex(db_config.production);
+  "client:update-credentials": function(client, argv) {
     let { client: id } = argv;
 
     if(id >= 1 !== true) {
-      db_client.destroy();
       throw new Error(`invalid client id: ${argv.client}`);
     }
 
@@ -71,9 +63,8 @@ module.exports = function(gulp, db_config, argv) {
         utils.log(utils.colors.yellow(`updating uuid! - new value: ${updates.uuid}`));
       }
 
-      return db_client("clients").where({ id }).update(updates);
-    }).then(function() {
-      db_client.destroy();
+      return client("clients").where({ id }).update(updates);
     });
-  });
+  }
+
 }

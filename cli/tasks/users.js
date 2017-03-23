@@ -4,17 +4,14 @@ const knex     = require("knex");
 const crypto   = require("crypto");
 const bluebird = require("bluebird");
 const table    = require("easy-table");
-const rando    = require("../helpers/random_string");
+const rando    = require("../../helpers/random_string");
 
-module.exports = function(gulp, db_config, argv) {
+module.exports = {
 
-  gulp.task("users:search", function() {
-    let db_client = knex(db_config.production);
+  "users:search": function(client, argv) {
     let { page } = argv;
 
     function print(users) {
-      db_client.destroy();
-
       if(users.length == 0) {
         utils.log(`no users found.`);
         return bluebird.resolve(true);
@@ -33,20 +30,14 @@ module.exports = function(gulp, db_config, argv) {
       utils.log(`\n${t.toString()}`);
     }
 
-    return db_client("users").whereNull("deleted_at").limit(20).offset(20 * (page || 0)).then(print);
-  });
+    return client("users").whereNull("deleted_at").limit(20).offset(20 * (page || 0)).then(print);
+  },
 
-  gulp.task("user:add-role", function() {
-    let db_client = knex(db_config.production);
+  "user:add-role": function(client, argv) {
     let { role, user } = argv;
 
     if(user >= 1 !== true || role >= 1 !== true ) {
-      db_client.destroy();
       throw new Error('must provide both valid --user and --role flags');
-    }
-
-    function done() {
-      db_client.destroy();
     }
 
     function check(results) {
@@ -58,18 +49,16 @@ module.exports = function(gulp, db_config, argv) {
       }
 
       utils.log(utils.colors.green(`user[${user}] doesn't have role[${role}], adding`));
-      return db_client("user_role_mappings").insert({ user, role });
+      return client("user_role_mappings").insert({ user, role });
     }
 
-    return db_client("user_role_mappings").where({ user, role }).then(check).finally(done);
-  });
+    return client("user_role_mappings").where({ user, role }).then(check);
+  },
 
-  gulp.task("user:get-roles", function() {
-    let db_client = knex(db_config.production);
+  "user:get-roles": function(client, argv) {
     let { user } = argv;
 
     if(user >= 1 !== true) {
-      db_client.destroy();
       throw new Error(`invalid client id: ${argv.client}`);
     }
 
@@ -86,14 +75,10 @@ module.exports = function(gulp, db_config, argv) {
 
     function getRoles(results) {
       const role_ids = results.map(function({ role }) { return role; });
-      return db_client("user_roles").whereIn('id', role_ids).then(print);
+      return client("user_roles").whereIn('id', role_ids).then(print);
     }
 
-    function done() {
-      db_client.destroy();
-    }
+    client("user_role_mappings").where({ user }).then(getRoles);
+  }
 
-    db_client("user_role_mappings").where({ user }).then(getRoles).finally(done);
-  });
-
-}
+};
