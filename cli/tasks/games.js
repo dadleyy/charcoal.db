@@ -3,16 +3,37 @@ const uuid     = require("node-uuid");
 const knex     = require("knex");
 const crypto   = require("crypto");
 const bluebird = require("bluebird");
+const table    = require("easy-table");
 
 module.exports = {
 
   "games:search": function(client) {
-    function print() {
+    function print(games) {
+      let t = new table();
+
+      for(let i = 0, c = games.length; i < c; i++) {
+        let { id, uuid, population, status, user_name } = games[i];
+
+        t.cell("id", id);
+        t.cell("uuid", uuid);
+        t.cell("status", status);
+        t.cell("creator", user_name);
+        t.cell("population", population);
+        t.newRow()
+      }
+
+      utils.log(`\n${t.toString()}`);
     }
 
     return client("games")
       .leftJoin("users", "users.id", "games.owner_id")
-      .select("games.id", "games.uuid", "games.owner_id")
+      .select(
+        "games.id as id",
+        "games.uuid as uuid",
+        "games.status as status",
+        "games.population as population",
+        "users.name as user_name"
+      ).limit(20)
       .then(print);
   },
 

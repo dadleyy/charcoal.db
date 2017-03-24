@@ -8,12 +8,10 @@ module.exports = function(config, argv, handler) {
     let destroy = client.destroy.bind(client);
 
     try {
-      return handler(client, argv).then(destroy);
+      return handler(client, argv).finally(destroy);
     } catch(e) {
       utils.log(utils.colors.red(e));
       return destroy();
     }
-
-    return blue.promisify(p).finally(destroy);
   };
 };

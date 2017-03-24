@@ -6,6 +6,7 @@ const bluebird = require("bluebird");
 const rando    = require("../../helpers/random_string");
 
 module.exports = {
+
   "client:get-credentials": function(client, argv) {
     let { client: id } = argv;
 

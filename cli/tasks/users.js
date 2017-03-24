@@ -23,7 +23,7 @@ module.exports = {
         t.cell("id", id);
         t.cell("email", email);
         t.cell("username", username);
-        t.cell("name", username);
+        t.cell("name", name);
         t.newRow()
       }
 
