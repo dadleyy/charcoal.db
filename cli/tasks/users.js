@@ -1,3 +1,4 @@
+const fs       = require("fs");
 const utils    = require("gulp-util");
 const uuid     = require("node-uuid");
 const knex     = require("knex");
@@ -7,6 +8,44 @@ const table    = require("easy-table");
 const rando    = require("../../helpers/random_string");
 
 module.exports = {
+  
+  "users:seed": function(client, argv) {
+    let { file } = argv;
+
+    if(!file) {
+      throw new Error("invalid file");
+    }
+
+    function finish() {
+      utils.log('done');
+    }
+
+    function create({ email, username, name}) {
+      let record = { email, username, name, uuid: uuid.v1() };
+
+      function check({ length: count }) {
+        if(count !== 0) {
+          utils.log(utils.colors.yellow(`unable to seed user, email[${email}] already taken`));
+          return bluebird.resolve(true);
+        }
+
+        return client("users").insert(record);
+      }
+
+      return client("users").where({ email }).select('id').then(check);
+    }
+
+    function loaded(buffer) {
+      try {
+        let data = JSON.parse(buffer.toString("utf-8"));
+        return bluebird.map(data, create).then(finish);
+      } catch(e) {
+        return bluebird.reject(e);
+      }
+    }
+
+    return bluebird.promisify(fs.readFile)(file).then(loaded);
+  },
 
   "users:search": function(client, argv) {
     let { page } = argv;
