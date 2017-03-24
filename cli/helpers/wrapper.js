@@ -7,10 +7,8 @@ module.exports = function(config, argv, handler) {
     let client = knex(config.db);
     let destroy = client.destroy.bind(client);
 
-    let p = blue.resolve(true);
-
     try {
-      p = handler(client, argv);
+      return handler(client, argv).then(destroy);
     } catch(e) {
       utils.log(utils.colors.red(e));
       return destroy();
