@@ -8,11 +8,16 @@ const { development: db } = require("./knexfile");
 const config = { db };
 
 const groups = glob.sync("./cli/tasks/**/*.js");
+const tasks = [ ];
 
 function noop() { }
 
 function help() {
-  utils.log('whoa');
+  utils.log('available tasks:');
+
+  for(let i = 0, c = tasks.length; i < c; i++) {
+    utils.log(`  ${tasks[i].name}`);
+  }
 }
 
 for(let i = 0, c = groups.length; i < c; i++) {
@@ -21,7 +26,13 @@ for(let i = 0, c = groups.length; i < c; i++) {
 
   for(let task_name in contents) {
     let handler = contents[task_name];
-    gulp.task(task_name, wrap(config, argv, typeof handler === "function" ? handler : noop));
+
+    if(typeof handler !== "function") {
+      continue;
+    }
+
+    tasks.push({ name: task_name });
+    gulp.task(task_name, wrap(config, argv, handler));
   }
 }
 
