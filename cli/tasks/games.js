@@ -115,10 +115,16 @@ module.exports = {
     let query = client("games").where({ deleted_at: null }).pluck("id");
 
     function pouplate(game_id) {
-      return client("game_memberships").where({ game_id }).count("id").then(function(results) {
-        let { "count(\`id\`)": population } = results[0];
+      let count = client("game_memberships")
+        .where({ game_id, status: "ACTIVE" })
+        .count("id as population");
+
+      function save(results) {
+        let { population } = results[0];
         return client("games").where({ id: game_id }).update({ population });
-      });
+      }
+
+      return count.then(save);
     }
 
     function members(game_ids) {
