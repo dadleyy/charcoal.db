@@ -14,8 +14,8 @@ exports.up = function(knex, Promise) {
       table.increments();
       table.string("uuid", 64); 
       table.dateTime("deleted_at");
-      table.integer("game").unsigned().references("games.id").notNullable();
-      table.integer("user").unsigned().references("users.id").notNullable();
+      table.integer("game").unsigned().references("games.id").notNullable().onDelete("CASCADE");
+      table.integer("user").unsigned().references("users.id").notNullable().onDelete("CASCADE");
       table.timestamps()
 
     });
