@@ -8,7 +8,7 @@ module.exports = function(config, argv, handler) {
     let destroy = client.destroy.bind(client);
 
     try {
-      return handler(client, argv).finally(destroy);
+      return (handler(client, argv) || blue.resolve(true)).finally(destroy);
     } catch(e) {
       utils.log(utils.colors.red(e));
       return destroy();

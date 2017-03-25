@@ -3,7 +3,7 @@ const uuid     = require("node-uuid");
 const knex     = require("knex");
 const crypto   = require("crypto");
 const bluebird = require("bluebird");
-const table    = require("easy-table");
+const table    = require("../helpers/print_table");
 
 module.exports = {
 
@@ -15,23 +15,11 @@ module.exports = {
     }
 
     function print(memberships) {
-      let t = new table();
-
       if(memberships.length === 0) {
         return utils.log("empty game");
       }
 
-      for(let i = 0, c = memberships.length; i < c; i++) {
-        let { id, name, username, status } = memberships[i];
-
-        t.cell("id", id);
-        t.cell("status", status);
-        t.cell("name", name);
-        t.cell("username", username);
-        t.newRow()
-      }
-
-      utils.log(`\n${t.toString()}`);
+      return table(memberships);
     }
 
     return client("game_memberships")
@@ -58,24 +46,11 @@ module.exports = {
       ).limit(20)
 
     function print(games) {
-      let t = new table();
-
       if(games.length === 0) {
         return utils.log("no games found");
       }
 
-      for(let i = 0, c = games.length; i < c; i++) {
-        let { id, uuid, population, status, user_name } = games[i];
-
-        t.cell("id", id);
-        t.cell("uuid", uuid);
-        t.cell("status", status);
-        t.cell("creator", user_name);
-        t.cell("population", population);
-        t.newRow()
-      }
-
-      utils.log(`\n${t.toString()}`);
+      return table(games);
     }
 
     return query.then(print);

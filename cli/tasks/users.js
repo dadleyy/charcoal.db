@@ -5,10 +5,30 @@ const knex     = require("knex");
 const crypto   = require("crypto");
 const bluebird = require("bluebird");
 const table    = require("easy-table");
+const bcrypt   = require("bcrypt");
 const rando    = require("../../helpers/random_string");
 
 module.exports = {
   
+  "user:set-password": function(client, argv) {
+    let {user, password } = argv;
+    let encrypt = bluebird.promisify(bcrypt.hash);
+
+    if(!password || !user) {
+      throw new Error("must provider 'user' and 'password' arguments");
+    }
+
+    function done() {
+      return utils.log(`updated password for user ${user}`);
+    }
+
+    function update(result) {
+      return client("users").where({ id: user }).update({ password: result }).then(done);
+    }
+  
+    return encrypt(password, 10).then(update);
+  },
+
   "users:seed": function(client, argv) {
     let { file } = argv;
 

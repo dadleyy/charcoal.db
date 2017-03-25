@@ -36,4 +36,14 @@ for(let i = 0, c = groups.length; i < c; i++) {
   }
 }
 
+function green(s) {
+  return utils.colors.green(s);
+}
+
+function env() {
+  let { connection } = db;
+  utils.log(`env: hostname[${green(connection.host)}] db[${green(connection.database)}]`);
+}
+
+gulp.task("env", env);
 gulp.task("default", help);
