@@ -71,7 +71,7 @@ module.exports = {
     let query = client("game_memberships")
       .leftJoin("games", "games.id", "game_memberships.game_id")
       .whereNotNull("games.deleted_at")
-      .whereNotNull("game_memberships.deleted_at")
+      .whereNull("game_memberships.deleted_at")
       .select("game_memberships.id", "game_memberships.user_id", "game_memberships.game_id")
 
     function prune(results) {
