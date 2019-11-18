@@ -20,7 +20,7 @@
   "author": "Danny Hadley <dadleyy@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^3.0.7",
     "bluebird": "^3.4.1",
     "dotenv": "^6.0.0",
     "easy-table": "^1.0.0",
